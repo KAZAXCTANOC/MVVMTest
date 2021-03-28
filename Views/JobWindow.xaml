@@ -11,31 +11,46 @@
     <Window.DataContext>
         <VM:JobWindowViewModel></VM:JobWindowViewModel>
     </Window.DataContext>
+
     
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Command="{Binding Plus100Command}" CommandParameter="{Binding SelecterdProduct}"  Width="50" Height="50">+100</Button>
-            <Button Command="{Binding Plus10Command}" CommandParameter="{Binding SelecterdProduct}" Width="50" Height="50">+10</Button>
-            <Button Command="{Binding Plus1Command}" CommandParameter="{Binding SelecterdProduct}" Width="50" Height="50">+1</Button>
-            <Button Command="{Binding Minus1Command}" CommandParameter="{Binding SelecterdProduct}" Width="50" Height="50">-1</Button>
-            <Button Command="{Binding Minus10Command}" CommandParameter="{Binding SelecterdProduct}" Width="50" Height="50">-10</Button>
-            <Button Command="{Binding Minus100Command}" CommandParameter="{Binding SelecterdProduct}" Width="50" Height="50">-100</Button>
-            <StackPanel Orientation="Horizontal">
-                <Button Width="80" Height="50" Command="{Binding PlusMinusCount}" CommandParameter="{Binding SelecterdProduct}">Выполнить</Button>
-                <ComboBox VerticalContentAlignment="Center" HorizontalContentAlignment="Center" SelectedValue="{Binding Sign}">
-                    <ComboBoxItem>+</ComboBoxItem>
-                    <ComboBoxItem>-</ComboBoxItem>
-                </ComboBox>
-                <TextBox VerticalContentAlignment="Center" HorizontalContentAlignment="Center" PreviewTextInput="TextBox_PreviewTextInput" Width="50" Height="50" Text="{Binding Count}"></TextBox>
-            </StackPanel>
-        </StackPanel>
+        <Menu Background="AliceBlue">
+            <Button FontSize="13" Style="{DynamicResource MaterialDesignToolButton}">Добавить продукт</Button>
+            <Button FontSize="13" Style="{DynamicResource MaterialDesignToolButton}">Список продуктов</Button>
+        </Menu>
 
-        <ListView x:Name="OLEG" ItemsSource="{Binding AllProducts, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelecterdProduct}">
+        <Grid Grid.Row="2" Background="AliceBlue">
+            <StackPanel  Orientation="Horizontal" HorizontalAlignment="Center" >
+                <Button Width="70" Margin="5" Command="{Binding Plus100Command}" CommandParameter="{Binding SelecterdProduct}" >+100</Button>
+                <Button Width="70" Margin="5" Command="{Binding Plus10Command}" CommandParameter="{Binding SelecterdProduct}">+10</Button>
+                <Button Width="70" Margin="5" Command="{Binding Plus1Command}" CommandParameter="{Binding SelecterdProduct}">+1</Button>
+                <Button Width="70" Margin="5" Command="{Binding Minus1Command}" CommandParameter="{Binding SelecterdProduct}">-1</Button>
+                <Button Width="70" Margin="5" Command="{Binding Minus10Command}" CommandParameter="{Binding SelecterdProduct}">-10</Button>
+                <Button Width="70" Margin="5" Command="{Binding Minus100Command}" CommandParameter="{Binding SelecterdProduct}">-100</Button>
+                <StackPanel Orientation="Horizontal">
+                    <Button Command="{Binding PlusMinusCount}" CommandParameter="{Binding SelecterdProduct}">Выполнить</Button>
+                    <ComboBox Width="35" Margin="5" Background="Transparent"  FontSize="25" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" SelectedValue="{Binding Sign}">
+                        <ComboBoxItem>+</ComboBoxItem>
+                        <ComboBoxItem>-</ComboBoxItem>
+                    </ComboBox>
+                    <TextBox FontSize="15" Margin="5,0,0,7" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" PreviewTextInput="TextBox_PreviewTextInput" Width="50" Height="50" Text="{Binding Count}"></TextBox>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+
+        <ListView Grid.Row="1" ItemsSource="{Binding AllProducts, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelecterdProduct}">
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <Button Style="{DynamicResource MaterialDesignToolForegroundButton}">Изменить</Button>
+                    <Button Style="{DynamicResource MaterialDesignToolForegroundButton}">Удалить</Button>
+                </ContextMenu>
+            </ListView.ContextMenu>
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Наименование">
@@ -102,6 +117,7 @@
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                 </GridView>
+                
             </ListView.View>
         </ListView>
     </Grid>
