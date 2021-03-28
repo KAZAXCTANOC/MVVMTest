@@ -1,6 +1,7 @@
 ﻿using MVVMTest.Date;
 using MVVMTest.Structur.Commands;
 using MVVMTest.ViewModels;
+using MVVMTest.Views;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -18,6 +19,7 @@ namespace MVVMTest.ViewModels
 {
     class JobWindowViewModel : BaseViewModel
     {
+        public ICommand NewProductCommand { get; }
         protected string sign { get; set; }
         public ICommand PlusMinusCount { get; }
         protected int count { get; set; }
@@ -28,6 +30,18 @@ namespace MVVMTest.ViewModels
         public ICommand Minus10Command { get; }
         public ICommand Minus1Command { get; }
 
+        #region Кнопка довавления нового продукта
+        private void OnNewProductCommandExecuted(object p)
+        {
+            NewProduct newProduct = new NewProduct();
+            newProduct.Show();
+        }
+
+        private bool CanNewProductCommandExecuted(object p) => true;
+        #endregion
+
+
+        #region Список продуктов
         protected Product selecterdProduct;
         SkladEntities sklad = new SkladEntities();
         public ObservableCollection<Product> allProducts { get; set;}
@@ -55,6 +69,8 @@ namespace MVVMTest.ViewModels
                 OnPropertyChanged("allProducts");
             }
         }
+
+        #endregion
 
         #region Конпки управлеия кол-вом 
 
@@ -199,6 +215,9 @@ namespace MVVMTest.ViewModels
         public JobWindowViewModel()
         {
             AllProducts = _AllProducts();
+
+            NewProductCommand = new LambdaCommand(OnNewProductCommandExecuted, CanNewProductCommandExecuted);
+
             PlusMinusCount = new LambdaCommand(OnPlusMinusExecuted, CanPlusMinusCommandExecute);
             Plus100Command = new LambdaCommand(OnPlus100CommandExecuted, CanPlusMinusCommandExecute);
             Plus10Command = new LambdaCommand(OnPlus10CommandExecuted, CanPlusMinusCommandExecute);

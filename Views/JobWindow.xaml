@@ -21,7 +21,7 @@
         </Grid.RowDefinitions>
 
         <Menu Background="AliceBlue">
-            <Button FontSize="13" Style="{DynamicResource MaterialDesignToolButton}">Добавить продукт</Button>
+            <Button Command="{Binding NewProductCommand}" FontSize="13" Style="{DynamicResource MaterialDesignToolButton}">Добавить продукт</Button>
             <Button FontSize="13" Style="{DynamicResource MaterialDesignToolButton}">Список продуктов</Button>
         </Menu>
 
