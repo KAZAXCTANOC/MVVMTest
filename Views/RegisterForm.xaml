@@ -13,28 +13,28 @@
     
     <StackPanel HorizontalAlignment="Center">
         <StackPanel Orientation="Horizontal">
-            <TextBlock Width="150" Text="Логин"></TextBlock>
-            <TextBox Text="{Binding Path=UserLogin, UpdateSourceTrigger=PropertyChanged}" Width="300"></TextBox>
+            <TextBlock FontSize="18" Width="150" Text="Логин"></TextBlock>
+            <TextBox FontSize="18" Text="{Binding Path=UserLogin, UpdateSourceTrigger=PropertyChanged}" Width="300"></TextBox>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal">
-            <TextBlock Width="150" Text="Пароль"></TextBlock>
-            <TextBox Text="{Binding Path=UserPassword, UpdateSourceTrigger=PropertyChanged}" Width="300"></TextBox>
+            <TextBlock FontSize="18" Width="150" Text="Пароль"></TextBlock>
+            <TextBox FontSize="18" Text="{Binding Path=UserPassword, UpdateSourceTrigger=PropertyChanged}" Width="300"></TextBox>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal">
-            <TextBlock Width="150" Text="Имя"></TextBlock>
-            <TextBox Text="{Binding Path=UserName, UpdateSourceTrigger=PropertyChanged}" Width="300"></TextBox>
+            <TextBlock FontSize="18" Width="150" Text="Имя"></TextBlock>
+            <TextBox FontSize="18" Text="{Binding Path=UserName, UpdateSourceTrigger=PropertyChanged}" Width="300"></TextBox>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal">
-            <TextBlock Width="150" Text="Фамилия"></TextBlock>
-            <TextBox Text="{Binding UserSurname, UpdateSourceTrigger=PropertyChanged}" Width="300"></TextBox>
+            <TextBlock FontSize="18" Width="150" Text="Фамилия"></TextBlock>
+            <TextBox FontSize="18" Text="{Binding UserSurname, UpdateSourceTrigger=PropertyChanged}" Width="300"></TextBox>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Command="{Binding RegisterUser}" Width="100" Content="Регистрация"></Button>
-            <Button Command="{Binding GoToMain}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" Width="100" Content="Отмена "></Button>
+            <Button Command="{Binding RegisterUser}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" Width="150" Content="Регистрация" Margin="10,35,10,5"></Button>
+            <Button Command="{Binding GoToMain}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" Width="150" Content="Отмена" Margin="10,35,10,5"></Button>
         </StackPanel>
         
     </StackPanel>

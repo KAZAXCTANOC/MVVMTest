@@ -4,68 +4,128 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MVVMTest.Views"
-        xmlns:VM1="clr-namespace:MVVMTest.Views"
         xmlns:VM="clr-namespace:MVVMTest.ViewModels"
         mc:Ignorable="d"
-        Title="Новый продукт" Height="450" Width="800"
+        Title="Новый продукт" Height="552" Width="800"
         WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow">
     <Window.DataContext>
-        <VM:
+        <VM:NewProductViewModel></VM:NewProductViewModel>
     </Window.DataContext>
     <Grid Background="WhiteSmoke">
-        <StackPanel Margin="10,15,5,10">
-            <DockPanel Grid.Row="0" LastChildFill="True" VerticalAlignment="Center">
+        <StackPanel Margin="10,15,5,10" >
+            <DockPanel Grid.Row="0" LastChildFill="True" VerticalAlignment="Center" Margin="0,0,0,15">
                 <TextBlock FontSize="15" Style="{DynamicResource MaterialDesignButtonTextBlock}" Width="120" DockPanel.Dock="Left" Grid.Column="0">Наименование</TextBlock>
-                <TextBox Text="{Binding NewProduct.Name}" FontSize="15" Padding="0,5,0,5" DockPanel.Dock="Right" Grid.Column="1"></TextBox>
+                <TextBox Text="{Binding Path=NewPoductName}" FontSize="15" Padding="0,5,0,5" DockPanel.Dock="Right" Grid.Column="1">
+                    <Validation.ErrorTemplate>
+                        <ControlTemplate>
+                            <StackPanel>
+                                <AdornedElementPlaceholder x:Name="textBox"/>
+                                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Validation.ErrorTemplate>
+                </TextBox>
             </DockPanel>
 
-            <DockPanel Grid.Row="0" LastChildFill="True" VerticalAlignment="Center">
+            <DockPanel Grid.Row="0" LastChildFill="True" VerticalAlignment="Center" Margin="0,0,0,15">
                 <TextBlock FontSize="15" Style="{DynamicResource MaterialDesignButtonTextBlock}" Width="120"  DockPanel.Dock="Left" Grid.Column="0">Цена</TextBlock>
-                <TextBox Text="{Binding NewProduct.}" FontSize="15" Padding="0,5,0,5" DockPanel.Dock="Right" Grid.Column="1"></TextBox>
+                <TextBox Text="{Binding NewPoductCost}" FontSize="15" Padding="0,5,0,5" DockPanel.Dock="Right" Grid.Column="1">
+                    <Validation.ErrorTemplate>
+                        <ControlTemplate>
+                            <StackPanel>
+                                <AdornedElementPlaceholder x:Name="textBox"/>
+                                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Validation.ErrorTemplate>
+                </TextBox>
             </DockPanel>
 
-            <DockPanel Grid.Row="0" LastChildFill="True" VerticalAlignment="Center">
-                <TextBlock FontSize="15" Style="{DynamicResource MaterialDesignButtonTextBlock}" Width="120"  DockPanel.Dock="Left" Grid.Column="0">Кол-во</TextBlock>
-                <TextBox FontSize="15" Padding="0,5,0,5" DockPanel.Dock="Right" Grid.Column="1"></TextBox>
+            <DockPanel Grid.Row="0" LastChildFill="True" VerticalAlignment="Center" Margin="0,0,0,15">
+                <TextBlock FontSize="15" Style="{DynamicResource MaterialDesignButtonTextBlock}" Width="120"  DockPanel.Dock="Left" Grid.Column="0" >Кол-во</TextBlock>
+                <TextBox Text="{Binding NewProductQty}" FontSize="15" Padding="0,5,0,5" DockPanel.Dock="Right" Grid.Column="1">
+                    <Validation.ErrorTemplate>
+                        <ControlTemplate>
+                            <StackPanel>
+                                <AdornedElementPlaceholder x:Name="textBox"/>
+                                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Validation.ErrorTemplate>
+                </TextBox>
             </DockPanel>
 
-            <DockPanel Grid.Row="0" LastChildFill="True" VerticalAlignment="Center">
+            <DockPanel Grid.Row="0" LastChildFill="True" VerticalAlignment="Center" Margin="0,0,0,15">
                 <TextBlock FontSize="15" Style="{DynamicResource MaterialDesignButtonTextBlock}" Width="120" DockPanel.Dock="Left" Grid.Column="0">Дата доставки</TextBlock>
-                <TextBox FontSize="15" Padding="0,5,0,5" DockPanel.Dock="Right" Grid.Column="1"></TextBox>
+                <DatePicker SelectedDate="{Binding NewProductDateDelivery}"  FontSize="15" Padding="0,5,0,5" DockPanel.Dock="Right" Grid.Column="1">
+                    <Validation.ErrorTemplate>
+                        <ControlTemplate>
+                            <StackPanel>
+                                <AdornedElementPlaceholder x:Name="textBox"/>
+                                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Validation.ErrorTemplate>
+                </DatePicker>
             </DockPanel>
 
-            <DockPanel Grid.Row="0" LastChildFill="True" VerticalAlignment="Center">
-                <TextBlock FontSize="15" Style="{DynamicResource MaterialDesignButtonTextBlock}" Width="120" DockPanel.Dock="Left" Grid.Column="0">Срок хранения</TextBlock>
-                <TextBox FontSize="15" Padding="0,5,0,5" DockPanel.Dock="Right" Grid.Column="1"></TextBox>
+            <DockPanel Grid.Row="0" LastChildFill="True" VerticalAlignment="Center" Margin="0,0,0,15">
+                <TextBlock  FontSize="15" Style="{DynamicResource MaterialDesignButtonTextBlock}" Width="120" DockPanel.Dock="Left" Grid.Column="0">Срок хранения</TextBlock>
+                <TextBox Text="{Binding NewProductDateExpiration}" FontSize="15" Padding="0,5,0,5" DockPanel.Dock="Right" Grid.Column="1">
+                    <Validation.ErrorTemplate>
+                        <ControlTemplate>
+                            <StackPanel>
+                                <AdornedElementPlaceholder x:Name="textBox"/>
+                                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Validation.ErrorTemplate>
+                </TextBox>
             </DockPanel>
 
-            <DockPanel Grid.Row="0" LastChildFill="True" VerticalAlignment="Center">
+            <DockPanel Grid.Row="0" LastChildFill="True" VerticalAlignment="Center" Margin="0,0,0,15">
                 <TextBlock FontSize="15" Style="{DynamicResource MaterialDesignButtonTextBlock}" Width="120" DockPanel.Dock="Left" Grid.Column="0">Тип продукта</TextBlock>
-                <ComboBox FontSize="10" Padding="0,5,0,5" Margin="0,7,0,0">
+                <ComboBox DisplayMemberPath="TypeName" SelectedItem="{Binding TypeEntry}" ItemsSource="{Binding TypenEtries}" FontSize="15" Padding="0,5,0,5" Margin="0,7,0,0">
                     
                 </ComboBox>
             </DockPanel>
 
-            <DockPanel Grid.Row="0" LastChildFill="True" VerticalAlignment="Center">
+            <DockPanel Grid.Row="0" LastChildFill="True" VerticalAlignment="Center" Margin="0,0,0,15">
                 <TextBlock FontSize="15" Style="{DynamicResource MaterialDesignButtonTextBlock}" Width="120" DockPanel.Dock="Left" Grid.Column="0">Марка продукта</TextBlock>
-                <TextBox FontSize="15" Padding="0,5,0,5" DockPanel.Dock="Right" Grid.Column="1"></TextBox>
+                <TextBox Text="{Binding NewProductMarksProduct}" FontSize="15" Padding="0,5,0,5" DockPanel.Dock="Right" Grid.Column="1">
+                    <Validation.ErrorTemplate>
+                        <ControlTemplate>
+                            <StackPanel>
+                                <AdornedElementPlaceholder x:Name="textBox"/>
+                                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Validation.ErrorTemplate>
+                </TextBox>
             </DockPanel>
 
-            <DockPanel Grid.Row="0" LastChildFill="True" VerticalAlignment="Center">
+            <DockPanel Grid.Row="0" LastChildFill="True" VerticalAlignment="Center" Margin="0,0,0,15">
                 <TextBlock FontSize="15" Style="{DynamicResource MaterialDesignButtonTextBlock}" Width="120" DockPanel.Dock="Left" Grid.Column="0">Описание</TextBlock>
-                <TextBox FontSize="15" Padding="0,5,0,5" DockPanel.Dock="Right" Grid.Column="1"></TextBox>
+                <TextBox Text="{Binding NewProductDescripton}" FontSize="15" Padding="0,5,0,5" DockPanel.Dock="Right" Grid.Column="1">
+                    <Validation.ErrorTemplate>
+                        <ControlTemplate>
+                            <StackPanel>
+                                <AdornedElementPlaceholder x:Name="textBox"/>
+                                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Validation.ErrorTemplate>
+                </TextBox>
             </DockPanel>
 
             <DockPanel Grid.Row="0" LastChildFill="True" VerticalAlignment="Center">
                 <TextBlock FontSize="15" Style="{DynamicResource MaterialDesignButtonTextBlock}" Width="120" DockPanel.Dock="Left" Grid.Column="0">Еденицы</TextBlock>
-                <ComboBox FontSize="10" Padding="0,5,0,5" Margin="0,7,0,0">
-
-                </ComboBox>
+                <ComboBox SelectedItem="{Binding UnitEntry}" ItemsSource="{Binding UnitsEntries}" DisplayMemberPath="UnitsName" FontSize="15" Padding="0,5,0,5" Margin="0,7,0,0"></ComboBox>
             </DockPanel>
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Width="120" Margin="10,20,10,5" >Сохранить</Button>
-                <Button Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Width="120" Margin="10,20,10,5" >Отмена</Button>
+                <Button Command="{Binding MessegeBoxCommand}" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Width="120" Margin="10,20,10,5" >Сохранить</Button>
+                <Button Command="{Binding CancelCommand}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" Width="120" Margin="10,20,10,5" >Отмена</Button>
             </StackPanel>
 
         </StackPanel>

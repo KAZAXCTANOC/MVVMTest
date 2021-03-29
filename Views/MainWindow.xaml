@@ -11,21 +11,32 @@
         xmlns:VM1="clr-namespace:MVVMTest.Views"
         mc:Ignorable="d"
         Title="Вход"
-        Height="450" Width="800">
+        Height="450" Width="800"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="ToolWindow">
 
     <Window.DataContext>
         <VM1:MainWindowViewModel></VM1:MainWindowViewModel>
     </Window.DataContext>
+    <Window.Background>
+        <LinearGradientBrush>
+                <GradientStop Color="#BBD2C5" Offset="0" />
+                <GradientStop Color="#536976" Offset="0.5" />
+                <GradientStop Color="#292E49" Offset="1" />
+            </LinearGradientBrush>
+    </Window.Background>
 
-    <StackPanel HorizontalAlignment="Center">
-        <TextBlock HorizontalAlignment="Center" Text="Логин"></TextBlock>
-        <TextBox Text="{Binding Path=MyUserLogin, UpdateSourceTrigger=PropertyChanged}" Width="200" ></TextBox>
-        <TextBlock HorizontalAlignment="Center" Text="Пароль"></TextBlock>
-        <TextBox Text="{Binding Path=MyUserPassword, UpdateSourceTrigger=PropertyChanged}" Width="200"></TextBox>
+    <Grid>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock FontSize="18" HorizontalAlignment="Center" Text="Логин"></TextBlock>
+            <TextBox FontSize="18" Text="{Binding Path=MyUserLogin, UpdateSourceTrigger=PropertyChanged}" Width="200" ></TextBox>
+            <TextBlock FontSize="18" HorizontalAlignment="Center" Text="Пароль"></TextBlock>
+            <TextBox FontSize="18" Text="{Binding Path=MyUserPassword, UpdateSourceTrigger=PropertyChanged}" Width="200"></TextBox>
 
-        <StackPanel Orientation="Horizontal">
-            <Button Command="{Binding AutorizeUser}" Width="200" Margin="5">Войти </Button>
-            <Button Command="{Binding RegisterButton}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" Width="200" Margin="5">Регистрация</Button>
+            <StackPanel Orientation="Horizontal" Margin="0,25,0,0">
+                <Button Command="{Binding AutorizeUser}" Width="200" Margin="5">Войти </Button>
+                <Button Command="{Binding RegisterButton}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" Width="200" Margin="5">Регистрация</Button>
+            </StackPanel>
         </StackPanel>
-    </StackPanel>
+    </Grid>
 </Window>

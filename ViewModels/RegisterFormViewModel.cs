@@ -67,19 +67,35 @@ namespace MVVMTest.ViewModels
                     string er = "";
                     foreach (var error in results)
                     {
-                        er += error.ToString();
+                        er += error.ToString() + "\n";
                     }
-                    MessageBox.Show(er + "\n");
+                    MessageBox.Show(er);
                 }
                 else 
                 {
+                    List<User> AllUsers = sklad.Users.ToList();
+                    foreach (User user in AllUsers)
+                    {
+                        if (user.Login == NewUser.Login)
+                        {
+                            MessageBox.Show("Пользователь под таким логином уже зарегистрирован");
+                            return;
+                        }
+                    }
+                    MessageBox.Show("Регистрация успешно завершена");
                     sklad.Users.Add(NewUser);
                     sklad.SaveChanges();
+                    MainWindow main = new MainWindow();
+                    main.Show();
+                    (p as Window).Close();
                 }
             }
         }
 
-        private bool CanRegisterUserExecute(object p) => true;
+        private bool CanRegisterUserExecute(object p)
+        {
+            return true;
+        }
         #endregion
 
         #region Кнопка перехода к авторизации

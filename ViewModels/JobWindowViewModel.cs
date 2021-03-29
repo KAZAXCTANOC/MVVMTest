@@ -9,6 +9,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
+using Excel = Microsoft.Office.Interop.Excel;
 
 //private void On???Executed(object p)
 //{
@@ -19,16 +20,80 @@ namespace MVVMTest.ViewModels
 {
     class JobWindowViewModel : BaseViewModel
     {
+        public ICommand GoToExcel { get; }
+        public ICommand EditCommand { get; }
+        public ICommand DeleteCommand { get; }
+        public ICommand UpdateCommand { get; }
         public ICommand NewProductCommand { get; }
-        protected string sign { get; set; }
         public ICommand PlusMinusCount { get; }
-        protected int count { get; set; }
         public ICommand Plus100Command { get; }
         public ICommand Plus10Command { get; }
         public ICommand Plus1Command { get; }
         public ICommand Minus100Command { get; }
         public ICommand Minus10Command { get; }
         public ICommand Minus1Command { get; }
+
+        protected int count { get; set; }
+        protected string sign { get; set; }
+
+        #region Таблица в excel
+        private void OnGoToExcelExecuted(object p)
+        {
+            SkladEntities sklad = new SkladEntities();
+
+            var excelApp = new Excel.Application();
+            excelApp.Workbooks.Add();
+            Excel.Worksheet worksheet = excelApp.ActiveSheet;
+
+            Product[] products = sklad.Products.ToArray();
+            worksheet.Cells[1][1] = "№";
+            worksheet.Cells[2][1] = "Описание";
+            worksheet.Cells[3][1] = "Кол-во";
+            worksheet.Cells[4][1] = "Дата доставки";
+            worksheet.Cells[5][1] = "Срок хранения";
+            worksheet.Cells[6][1] = "Марка";
+            worksheet.Cells[7][1] = "Тип продукта";
+            worksheet.Cells[8][1] = "Цена";
+            worksheet.Cells[9][1] = "Ед.из";
+            worksheet.Cells[10][1] = "Наименовние";
+
+            for (int x = 2; x < products.Length + 2; x++)
+            {
+                worksheet.Cells[1][x] = products[x - 2].Id;
+                worksheet.Cells[2][x] = products[x - 2].Descriotion;
+                worksheet.Cells[3][x] = products[x - 2].Qty;
+                worksheet.Cells[4][x] = products[x - 2].DateDelivery;
+                worksheet.Cells[5][x] = products[x - 2].DateExpiration;
+                worksheet.Cells[6][x] = products[x - 2].MarksProduct;
+                worksheet.Cells[7][x] = products[x - 2].TypeProduct.TypeName;
+                worksheet.Cells[8][x] = products[x - 2].Cost;
+                worksheet.Cells[9][x] = products[x - 2].Unit.UnitsName;
+                worksheet.Cells[10][x] = products[x - 2].Name;
+            }
+
+            excelApp.Visible = true;
+        }
+
+        private bool CanGoToExcelExecuted(object p) => true;
+        #endregion
+
+        #region Конпка изменения продукта 
+        private void OnEditCommandExecuted(object p)
+        {
+            EditProductWindow newProduct = new EditProductWindow();
+            newProduct.Show();
+        }
+        #endregion
+
+        #region Кнопка удаления продукта 
+        private void OnDeleteCommandExecuted(object p)
+        {
+            sklad.Products.Remove(selecterdProduct);
+            sklad.SaveChanges();
+            OnPropertyChanged();
+            AllProducts = _AllProducts();
+        }
+        #endregion
 
         #region Кнопка довавления нового продукта
         private void OnNewProductCommandExecuted(object p)
@@ -40,9 +105,19 @@ namespace MVVMTest.ViewModels
         private bool CanNewProductCommandExecuted(object p) => true;
         #endregion
 
+        #region Кнопка обновления
+        private void OnUpdateExecuted(object p)
+        {
+            AllProducts = null;
+            AllProducts = _AllProducts();
+        }
+
+        private bool CanUpdateExecuted(object p) => true;
+
+        #endregion
 
         #region Список продуктов
-        protected Product selecterdProduct;
+        public Product selecterdProduct;
         SkladEntities sklad = new SkladEntities();
         public ObservableCollection<Product> allProducts { get; set;}
 
@@ -190,7 +265,7 @@ namespace MVVMTest.ViewModels
                 sklad.SaveChanges();
                 AllProducts = _AllProducts();
             }
-            else MessageBox.Show("Значение не может быть ментшу нуля");
+            else MessageBox.Show("Значение не может быть меньше нуля");
         }
 
         private bool CanPlusMinusCommandExecute(object p)
@@ -215,6 +290,14 @@ namespace MVVMTest.ViewModels
         public JobWindowViewModel()
         {
             AllProducts = _AllProducts();
+
+            GoToExcel = new LambdaCommand(OnGoToExcelExecuted, CanGoToExcelExecuted);
+
+            EditCommand = new LambdaCommand(OnEditCommandExecuted, CanPlusMinusCommandExecute);
+
+            DeleteCommand = new LambdaCommand(OnDeleteCommandExecuted, CanPlusMinusCommandExecute);
+
+            UpdateCommand = new LambdaCommand(OnUpdateExecuted, CanUpdateExecuted);
 
             NewProductCommand = new LambdaCommand(OnNewProductCommandExecuted, CanNewProductCommandExecuted);
 

@@ -22,7 +22,8 @@
 
         <Menu Background="AliceBlue">
             <Button Command="{Binding NewProductCommand}" FontSize="13" Style="{DynamicResource MaterialDesignToolButton}">Добавить продукт</Button>
-            <Button FontSize="13" Style="{DynamicResource MaterialDesignToolButton}">Список продуктов</Button>
+            <Button Command="{Binding GoToExcel}" FontSize="13" Style="{DynamicResource MaterialDesignToolButton}">Список продуктов</Button>
+            <Button FontSize="13" Style="{DynamicResource MaterialDesignToolButton}" Command="{Binding UpdateCommand}">Обновить таблицу</Button>
         </Menu>
 
         <Grid Grid.Row="2" Background="AliceBlue">
@@ -47,8 +48,8 @@
         <ListView Grid.Row="1" ItemsSource="{Binding AllProducts, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelecterdProduct}">
             <ListView.ContextMenu>
                 <ContextMenu>
-                    <Button Style="{DynamicResource MaterialDesignToolForegroundButton}">Изменить</Button>
-                    <Button Style="{DynamicResource MaterialDesignToolForegroundButton}">Удалить</Button>
+                    <Button Command="{Binding EditCommand}" CommandParameter="{Binding SelecterdProduct}" Style="{DynamicResource MaterialDesignToolForegroundButton}">Изменить</Button>
+                    <Button Command="{Binding DeleteCommand}" CommandParameter="{Binding SelecterdProduct}" Style="{DynamicResource MaterialDesignToolForegroundButton}">Удалить</Button>
                 </ContextMenu>
             </ListView.ContextMenu>
             <ListView.View>
